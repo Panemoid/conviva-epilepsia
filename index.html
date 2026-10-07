@@ -1,0 +1,2615 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6d5dfc" />
+  <meta
+    name="description"
+    content="ConViva, um site educativo sobre epilepsia, primeiros socorros e informação."
+  />
+  <title>ConViva | Informação sobre epilepsia</title>
+
+  <style>
+    :root {
+      --bg: #090a14;
+      --bg-soft: #101225;
+      --card: rgba(255, 255, 255, 0.07);
+      --card-strong: rgba(255, 255, 255, 0.1);
+      --text: #f6f7ff;
+      --muted: #b9bdd2;
+      --primary: #8b7cff;
+      --primary-2: #5de1e6;
+      --accent: #ffd166;
+      --danger: #ff6b81;
+      --success: #71e6a8;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+      --max: 1150px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(139, 124, 255, 0.17),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 85% 20%,
+          rgba(93, 225, 230, 0.1),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 50% 100%,
+          rgba(139, 124, 255, 0.08),
+          transparent 34%
+        ),
+        var(--bg);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px
+        );
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 12px;
+      top: -60px;
+      z-index: 9999;
+      background: white;
+      color: black;
+      padding: 10px 16px;
+      border-radius: 10px;
+      transition: 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    /* NAVEGAÇÃO */
+
+    .navbar {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: min(var(--max), calc(100% - 28px));
+      background: rgba(9, 10, 20, 0.72);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 10px 16px 10px 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #080914;
+      box-shadow: 0 8px 25px rgba(139, 124, 255, 0.28);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--muted);
+      transition: 0.2s ease;
+      font-size: 0.93rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+      outline: none;
+    }
+
+    .mobile-menu {
+      display: none;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      padding: 140px 0 80px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(93, 225, 230, 0.2);
+      background: rgba(93, 225, 230, 0.06);
+      color: var(--primary-2);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      max-width: 750px;
+      font-size: clamp(3rem, 6vw, 6.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(
+        100deg,
+        #ffffff 0%,
+        #b4acff 40%,
+        #66edf0 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      padding: 13px 17px;
+      cursor: pointer;
+      font-weight: 800;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #6357e7);
+      color: white;
+      box-shadow: 0 14px 35px rgba(109, 93, 252, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    /* ILUSTRAÇÃO */
+
+    .visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 490px;
+    }
+
+    .orb {
+      width: min(420px, 72vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      position: relative;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(
+          circle at 45% 40%,
+          rgba(255, 255, 255, 0.16),
+          transparent 15%
+        ),
+        radial-gradient(
+          circle at 55% 55%,
+          rgba(139, 124, 255, 0.35),
+          transparent 49%
+        ),
+        radial-gradient(
+          circle,
+          rgba(93, 225, 230, 0.14),
+          rgba(139, 124, 255, 0.08) 55%,
+          rgba(255, 255, 255, 0.02) 70%,
+          transparent 72%
+        );
+      box-shadow:
+        0 0 80px rgba(139, 124, 255, 0.18),
+        inset 0 0 80px rgba(255, 255, 255, 0.04);
+      animation: float 5s ease-in-out infinite;
+      isolation: isolate;
+    }
+
+    .orb::before,
+    .orb::after {
+      content: "";
+      position: absolute;
+      inset: -26px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      animation: pulseRing 3s ease-in-out infinite;
+    }
+
+    .orb::after {
+      inset: -58px;
+      opacity: 0.45;
+      animation-delay: 1.1s;
+    }
+
+    .brain {
+      position: relative;
+      width: 66%;
+      aspect-ratio: 1.05;
+      filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.28));
+    }
+
+    .brain svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .neuron {
+      animation: blink 2.4s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .neuron:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .neuron:nth-child(3) {
+      animation-delay: 0.7s;
+    }
+
+    .neuron:nth-child(4) {
+      animation-delay: 1.2s;
+    }
+
+    .neuron:nth-child(5) {
+      animation-delay: 1.7s;
+    }
+
+    .floating-tag {
+      position: absolute;
+      padding: 10px 13px;
+      border: 1px solid var(--border);
+      background: rgba(10, 11, 23, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      font-size: 0.88rem;
+      font-weight: 760;
+      animation: floatTag 4s ease-in-out infinite;
+    }
+
+    .tag-a {
+      top: 12%;
+      left: 0;
+    }
+
+    .tag-b {
+      right: 0;
+      top: 25%;
+      animation-delay: 1.2s;
+    }
+
+    .tag-c {
+      bottom: 12%;
+      left: 10%;
+      animation-delay: 0.6s;
+    }
+
+    /* SEÇÕES */
+
+    section {
+      padding: 100px 0;
+      scroll-margin-top: 105px;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 42px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.03;
+      letter-spacing: -0.045em;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(139, 124, 255, 0.34);
+      background: var(--card-strong);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(
+        135deg,
+        rgba(139, 124, 255, 0.2),
+        rgba(93, 225, 230, 0.13)
+      );
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 16px;
+      font-size: 1.15rem;
+      font-weight: 900;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 9px;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    /* PRIMEIROS SOCORROS */
+
+    .aid-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .aid-panel {
+      padding: 30px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 107, 129, 0.25);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 107, 129, 0.1),
+          rgba(139, 124, 255, 0.06)
+        ),
+        var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .aid-panel h3 {
+      font-size: 1.75rem;
+      margin-bottom: 12px;
+    }
+
+    .aid-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .aid-item {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .aid-num {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(139, 124, 255, 0.2);
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+
+    .red-alert {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 17px;
+      background: rgba(255, 107, 129, 0.1);
+      border: 1px solid rgba(255, 107, 129, 0.26);
+    }
+
+    .red-alert strong {
+      color: #ffadba;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .red-alert p {
+      color: #ffd5dc;
+    }
+
+    .timer-card {
+      padding: 30px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--card);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .timer-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .timer {
+      font-size: clamp(4rem, 9vw, 7rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 20px;
+    }
+
+    .timer.warning {
+      color: var(--danger);
+      animation: warningPulse 1s infinite;
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .note {
+      max-width: 400px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    /* MITOS */
+
+    .myths {
+      display: grid;
+      gap: 13px;
+    }
+
+    .myth {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .myth button {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      font-weight: 820;
+    }
+
+    .myth button span:last-child {
+      color: var(--muted);
+      font-size: 1.35rem;
+      transition: 0.2s ease;
+    }
+
+    .myth.open button span:last-child {
+      transform: rotate(45deg);
+    }
+
+    .myth-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .myth-content-inner {
+      padding: 0 20px 20px;
+      color: var(--muted);
+    }
+
+    .badge-myth,
+    .badge-fact {
+      display: inline-flex;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      margin-right: 7px;
+      vertical-align: middle;
+    }
+
+    .badge-myth {
+      color: #ffd0d7;
+      background: rgba(255, 107, 129, 0.14);
+    }
+
+    .badge-fact {
+      color: #baf7d5;
+      background: rgba(113, 230, 168, 0.14);
+    }
+
+    /* QUIZ */
+
+    .quiz {
+      display: grid;
+      grid-template-columns: 1fr 0.82fr;
+      gap: 18px;
+    }
+
+    .quiz-box,
+    .quiz-result {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .quiz-question {
+      font-size: 1.45rem;
+      font-weight: 850;
+      margin-bottom: 18px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+    }
+
+    .answer {
+      width: 100%;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 14px 15px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .answer:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(3px);
+    }
+
+    .answer.correct {
+      border-color: rgba(113, 230, 168, 0.55);
+      background: rgba(113, 230, 168, 0.1);
+    }
+
+    .answer.wrong {
+      border-color: rgba(255, 107, 129, 0.55);
+      background: rgba(255, 107, 129, 0.1);
+    }
+
+    .quiz-status {
+      color: var(--muted);
+      min-height: 50px;
+      margin-top: 14px;
+    }
+
+    .score {
+      font-size: 3.2rem;
+      font-weight: 950;
+      letter-spacing: -0.06em;
+      margin: 10px 0;
+    }
+
+    .quiz-progress {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .quiz-progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(
+        90deg,
+        var(--primary),
+        var(--primary-2)
+      );
+      transition: width 0.3s ease;
+    }
+
+    /* FONTES */
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .resource {
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--card);
+    }
+
+    .resource a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      color: var(--primary-2);
+      font-weight: 800;
+    }
+
+    .emergency {
+      margin-top: 18px;
+      padding: 30px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 209, 102, 0.28);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 209, 102, 0.08),
+          rgba(139, 124, 255, 0.06)
+        );
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .emergency h3 {
+      font-size: 1.55rem;
+      margin-bottom: 6px;
+    }
+
+    .emergency p {
+      color: var(--muted);
+    }
+
+    .phone {
+      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      font-weight: 950;
+      line-height: 1;
+      white-space: nowrap;
+      letter-spacing: -0.07em;
+      color: var(--accent);
+    }
+
+    /* RODAPÉ */
+
+    footer {
+      padding: 70px 0 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+    }
+
+    .source-list {
+      display: grid;
+      gap: 9px;
+      margin-top: 15px;
+    }
+
+    .source-list a {
+      color: #d3d6e4;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer-bottom {
+      margin-top: 35px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.85rem;
+    }
+
+    /* ANIMAÇÕES */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translate(-50%, 120px);
+      z-index: 3000;
+      min-width: min(420px, calc(100% - 28px));
+      padding: 14px 17px;
+      border: 1px solid var(--border);
+      background: rgba(14, 16, 30, 0.95);
+      backdrop-filter: blur(12px);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      color: var(--text);
+      transition: 0.3s ease;
+      text-align: center;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-14px) rotate(1.5deg);
+      }
+    }
+
+    @keyframes pulseRing {
+      0%,
+      100% {
+        transform: scale(0.96);
+        opacity: 0.25;
+      }
+
+      50% {
+        transform: scale(1.03);
+        opacity: 0.65;
+      }
+    }
+
+    @keyframes floatTag {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 0.45;
+        transform: scale(0.8);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.15);
+      }
+    }
+
+    @keyframes warningPulse {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.035);
+      }
+    }
+
+    /* RESPONSIVO */
+
+    @media (max-width: 900px) {
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 8px;
+        background: rgba(9, 10, 20, 0.96);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .hero-grid,
+      .aid-wrap,
+      .quiz,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 130px;
+      }
+
+      .visual {
+        min-height: 430px;
+        order: -1;
+      }
+
+      .cards,
+      .resource-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .emergency {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(var(--max), calc(100% - 26px));
+      }
+
+      .navbar {
+        width: calc(100% - 18px);
+      }
+
+      .hero h1 {
+        font-size: clamp(2.7rem, 15vw, 4rem);
+      }
+
+      .cards,
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 75px 0;
+      }
+
+      .aid-panel,
+      .timer-card,
+      .quiz-box,
+      .quiz-result {
+        padding: 21px;
+      }
+
+      .visual {
+        min-height: 330px;
+      }
+
+      .orb {
+        width: 270px;
+      }
+
+      .floating-tag {
+        font-size: 0.76rem;
+        padding: 8px 10px;
+      }
+
+      .tag-a {
+        left: -2px;
+      }
+
+      .tag-b {
+        right: -3px;
+      }
+
+      .tag-c {
+        left: 3%;
+        bottom: 5%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#conteudo" class="skip-link">
+    Pular para o conteúdo
+  </a>
+
+  <header class="navbar">
+    <div class="nav-inner">
+
+      <a
+        class="brand"
+        href="#inicio"
+        aria-label="ConViva, voltar ao início"
+      >
+        <span class="brand-mark">CV</span>
+        <span>ConViva</span>
+      </a>
+
+      <button
+        class="mobile-menu"
+        id="mobileMenu"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#entenda">Entenda</a></li>
+        <li><a href="#primeiros-socorros">Primeiros socorros</a></li>
+        <li><a href="#mitos">Mitos</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+        <li><a href="#ajuda">Ajuda</a></li>
+      </ul>
+
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- INÍCIO -->
+
+    <section class="hero" id="inicio">
+
+      <div class="container hero-grid">
+
+        <div class="reveal">
+
+          <div class="eyebrow">
+            Informação, acolhimento e segurança
+          </div>
+
+          <h1>
+            Informação que
+            <span class="gradient-text">pode ajudar.</span>
+          </h1>
+
+          <p>
+            Um espaço educativo para entender a epilepsia,
+            reconhecer possíveis crises e conhecer atitudes
+            simples que podem ajudar durante uma emergência.
+          </p>
+
+          <div class="hero-actions">
+
+            <a
+              class="btn btn-primary"
+              href="#primeiros-socorros"
+            >
+              O que fazer durante uma crise
+            </a>
+
+            <a
+              class="btn btn-secondary"
+              href="#entenda"
+            >
+              Entender a epilepsia
+            </a>
+
+          </div>
+
+        </div>
+
+        <div class="visual reveal" aria-hidden="true">
+
+          <div class="orb">
+
+            <div class="brain">
+
+              <svg
+                viewBox="0 0 400 340"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+
+                <path
+                  d="M128 292C87 285 61 250 67 215C38 195 41 153 68 137C56 103 78 66 115 61C132 25 181 19 208 46C234 18 280 27 293 60C329 64 347 97 334 129C363 147 358 191 330 207C338 246 309 283 269 287C250 313 211 320 187 296C165 314 141 309 128 292Z"
+                  fill="url(#brainGrad)"
+                  stroke="rgba(255,255,255,.8)"
+                  stroke-width="6"
+                />
+
+                <path
+                  d="M199 50C175 77 186 100 168 121C151 142 157 174 181 189C193 198 193 220 177 239C166 251 163 271 173 292"
+                  stroke="#E6E2FF"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M98 96C130 91 139 112 127 136C113 164 125 182 146 194"
+                  stroke="#E6E2FF"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M270 74C238 89 245 116 266 135C286 154 276 178 256 189C233 201 244 229 263 245C277 256 284 275 277 286"
+                  stroke="#E6E2FF"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M82 180C101 167 116 177 115 198C113 221 131 227 147 220"
+                  stroke="#E6E2FF"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+
+                <path
+                  d="M302 162C278 160 267 171 270 193C272 212 257 224 238 220"
+                  stroke="#E6E2FF"
+                  stroke-width="7"
+                  stroke-linecap="round"
+                />
+
+                <circle
+                  class="neuron"
+                  cx="128"
+                  cy="136"
+                  r="8"
+                  fill="#66EDF0"
+                />
+
+                <circle
+                  class="neuron"
+                  cx="168"
+                  cy="121"
+                  r="8"
+                  fill="#B4ACFF"
+                />
+
+                <circle
+                  class="neuron"
+                  cx="256"
+                  cy="189"
+                  r="8"
+                  fill="#66EDF0"
+                />
+
+                <circle
+                  class="neuron"
+                  cx="115"
+                  cy="198"
+                  r="8"
+                  fill="#B4ACFF"
+                />
+
+                <circle
+                  class="neuron"
+                  cx="270"
+                  cy="193"
+                  r="8"
+                  fill="#66EDF0"
+                />
+
+                <defs>
+
+                  <linearGradient
+                    id="brainGrad"
+                    x1="70"
+                    y1="40"
+                    x2="330"
+                    y2="300"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#8B7CFF" />
+                    <stop offset="1" stop-color="#3C8DAD" />
+                  </linearGradient>
+
+                </defs>
+
+              </svg>
+
+            </div>
+
+          </div>
+
+          <div class="floating-tag tag-a">
+            Informação sem julgamento
+          </div>
+
+          <div class="floating-tag tag-b">
+            Acolhimento
+          </div>
+
+          <div class="floating-tag tag-c">
+            Primeiros socorros
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ENTENDA -->
+
+    <section id="entenda">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            Entenda
+          </div>
+
+          <h2>
+            Epilepsia pode se manifestar de diferentes formas.
+          </h2>
+
+          <p>
+            Epilepsia é um distúrbio do cérebro associado
+            a crises epilépticas recorrentes. As crises podem
+            ter aparências muito diferentes entre si.
+          </p>
+
+        </div>
+
+        <div class="cards">
+
+          <article class="card reveal">
+
+            <div class="icon">
+              01
+            </div>
+
+            <h3>
+              O que é uma crise?
+            </h3>
+
+            <p>
+              Uma crise epiléptica acontece quando há uma
+              alteração temporária na atividade elétrica do cérebro.
+              Dependendo do tipo de crise, a pessoa pode ter
+              mudanças nos movimentos, na consciência,
+              no comportamento ou nas sensações.
+            </p>
+
+          </article>
+
+          <article class="card reveal">
+
+            <div class="icon">
+              02
+            </div>
+
+            <h3>
+              Nem toda crise provoca convulsões
+            </h3>
+
+            <p>
+              Algumas crises podem envolver olhar fixo,
+              confusão, movimentos incomuns ou dificuldade
+              para responder. Uma convulsão é apenas uma
+              das possíveis apresentações.
+            </p>
+
+          </article>
+
+          <article class="card reveal">
+
+            <div class="icon">
+              03
+            </div>
+
+            <h3>
+              Existem diferentes tipos de crises
+            </h3>
+
+            <p>
+              As crises podem ser classificadas como focais
+              ou generalizadas. A classificação depende de
+              onde a crise começa e de como ela afeta o cérebro.
+            </p>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRIMEIROS SOCORROS -->
+
+    <section id="primeiros-socorros">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            Primeiros socorros
+          </div>
+
+          <h2>
+            Durante uma crise, o principal é manter a pessoa em segurança.
+          </h2>
+
+          <p>
+            Algumas atitudes simples ajudam a reduzir o risco
+            de ferimentos. Não tente parar os movimentos à força.
+          </p>
+
+        </div>
+
+        <div class="aid-wrap">
+
+          <div class="aid-panel reveal">
+
+            <h3>
+              O que fazer
+            </h3>
+
+            <ul class="aid-list">
+
+              <li class="aid-item">
+                <span class="aid-num">1</span>
+
+                <span>
+                  <strong>Fique com a pessoa</strong>
+                  e mantenha a calma.
+                </span>
+              </li>
+
+              <li class="aid-item">
+                <span class="aid-num">2</span>
+
+                <span>
+                  <strong>Afaste objetos perigosos</strong>
+                  que possam causar ferimentos.
+                </span>
+              </li>
+
+              <li class="aid-item">
+                <span class="aid-num">3</span>
+
+                <span>
+                  <strong>Proteja a cabeça</strong>
+                  com algo macio, se possível.
+                </span>
+              </li>
+
+              <li class="aid-item">
+                <span class="aid-num">4</span>
+
+                <span>
+                  <strong>Cronometre a crise.</strong>
+                  Saber a duração pode ser importante.
+                </span>
+              </li>
+
+              <li class="aid-item">
+                <span class="aid-num">5</span>
+
+                <span>
+                  Quando for possível fazer isso com segurança,
+                  <strong>coloque a pessoa de lado.</strong>
+                </span>
+              </li>
+
+              <li class="aid-item">
+                <span class="aid-num">6</span>
+
+                <span>
+                  Depois da crise, ofereça apoio e deixe a pessoa
+                  <strong>se recuperar em um local seguro.</strong>
+                </span>
+              </li>
+
+            </ul>
+
+            <div class="red-alert">
+
+              <strong>
+                Quando é importante chamar ajuda
+              </strong>
+
+              <p>
+                No Brasil, o <strong>SAMU 192</strong> pode ser
+                acionado em situações de emergência. É especialmente
+                importante buscar ajuda quando a crise dura mais de
+                5 minutos, quando outra crise começa logo depois
+                sem que a pessoa se recupere, quando há dificuldade
+                para respirar ou acordar, quando houve um ferimento,
+                quando a crise aconteceu na água ou quando essa é
+                a primeira crise da pessoa.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <aside class="timer-card reveal">
+
+            <div class="timer-label">
+              Cronômetro de crise, para fins educativos
+            </div>
+
+            <div class="timer" id="timer">
+              00:00
+            </div>
+
+            <div class="timer-controls">
+
+              <button
+                class="btn btn-primary"
+                id="startTimer"
+              >
+                Iniciar
+              </button>
+
+              <button
+                class="btn btn-secondary"
+                id="stopTimer"
+              >
+                Parar
+              </button>
+
+              <button
+                class="btn btn-secondary"
+                id="resetTimer"
+              >
+                Zerar
+              </button>
+
+            </div>
+
+            <p class="note">
+              Este cronômetro não faz diagnóstico.
+              Ele apenas mostra por que registrar a duração
+              de uma crise pode ser útil.
+            </p>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MITOS -->
+
+    <section id="mitos">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            Mitos e verdades
+          </div>
+
+          <h2>
+            Saber o que fazer também faz parte do cuidado.
+          </h2>
+
+          <p>
+            Alguns mitos podem levar a atitudes perigosas.
+            Clique em cada item para ver a explicação.
+          </p>
+
+        </div>
+
+        <div class="myths">
+
+          <article class="myth reveal">
+
+            <button
+              type="button"
+              class="myth-toggle"
+            >
+              <span>
+                É preciso colocar algo na boca da pessoa.
+              </span>
+
+              <span>
+                +
+              </span>
+            </button>
+
+            <div class="myth-content">
+
+              <div class="myth-content-inner">
+
+                <span class="badge-myth">
+                  MITO
+                </span>
+
+                Não coloque objetos, comida ou líquidos
+                na boca durante a crise. Isso pode causar
+                ferimentos.
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="myth reveal">
+
+            <button
+              type="button"
+              class="myth-toggle"
+            >
+              <span>
+                Devo segurar braços e pernas para parar os movimentos.
+              </span>
+
+              <span>
+                +
+              </span>
+            </button>
+
+            <div class="myth-content">
+
+              <div class="myth-content-inner">
+
+                <span class="badge-myth">
+                  MITO
+                </span>
+
+                Não tente conter os movimentos à força.
+                O foco deve ser proteger a pessoa de objetos
+                e superfícies que possam machucá-la.
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="myth reveal">
+
+            <button
+              type="button"
+              class="myth-toggle"
+            >
+              <span>
+                Nem toda crise epiléptica faz a pessoa cair e tremer.
+              </span>
+
+              <span>
+                +
+              </span>
+            </button>
+
+            <div class="myth-content">
+
+              <div class="myth-content-inner">
+
+                <span class="badge-fact">
+                  VERDADE
+                </span>
+
+                Existem vários tipos de crises. Algumas podem
+                envolver olhar fixo, confusão, alterações de
+                consciência ou comportamentos incomuns.
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="myth reveal">
+
+            <button
+              type="button"
+              class="myth-toggle"
+            >
+              <span>
+                Depois da crise, posso oferecer água imediatamente.
+              </span>
+
+              <span>
+                +
+              </span>
+            </button>
+
+            <div class="myth-content">
+
+              <div class="myth-content-inner">
+
+                <span class="badge-myth">
+                  MITO
+                </span>
+
+                Espere a pessoa estar totalmente alerta antes
+                de oferecer comida ou bebida, para reduzir o
+                risco de engasgo.
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- QUIZ -->
+
+    <section id="quiz">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            Aprenda praticando
+          </div>
+
+          <h2>
+            Você saberia ajudar?
+          </h2>
+
+          <p>
+            Um quiz rápido para revisar o que você aprendeu.
+          </p>
+
+        </div>
+
+        <div class="quiz">
+
+          <div class="quiz-box reveal">
+
+            <div class="quiz-progress">
+
+              <div
+                class="quiz-progress-bar"
+                id="quizProgress"
+              ></div>
+
+            </div>
+
+            <div
+              class="quiz-question"
+              id="quizQuestion"
+            ></div>
+
+            <div
+              class="answers"
+              id="answers"
+            ></div>
+
+            <div
+              class="quiz-status"
+              id="quizStatus"
+              aria-live="polite"
+            ></div>
+
+            <button
+              class="btn btn-secondary"
+              id="nextQuestion"
+              style="display: none;"
+            >
+              Próxima pergunta
+            </button>
+
+          </div>
+
+
+          <aside class="quiz-result reveal">
+
+            <div class="icon">
+              ?
+            </div>
+
+            <h3>
+              Seu progresso
+            </h3>
+
+            <div
+              class="score"
+              id="score"
+            >
+              0/3
+            </div>
+
+            <p id="scoreText">
+              Responda às perguntas para testar
+              seus conhecimentos.
+            </p>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- AJUDA -->
+
+    <section id="ajuda">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="eyebrow">
+            Ajuda
+          </div>
+
+          <h2>
+            Para continuar aprendendo, consulte fontes confiáveis.
+          </h2>
+
+          <p>
+            Para dúvidas sobre sintomas, diagnóstico ou tratamento,
+            procure um profissional de saúde e dê preferência
+            a fontes oficiais.
+          </p>
+
+        </div>
+
+        <div class="resource-grid">
+
+          <article class="resource reveal">
+
+            <div>
+
+              <div class="icon">
+                BR
+              </div>
+
+              <h3>
+                Ministério da Saúde
+              </h3>
+
+              <p>
+                Informações oficiais sobre o SAMU 192
+                e atendimento de urgência no Brasil.
+              </p>
+
+            </div>
+
+            <a
+              href="https://www.gov.br/saude/pt-br/composicao/saes/samu-192"
+              target="_blank"
+              rel="noopener"
+            >
+              Abrir fonte
+            </a>
+
+          </article>
+
+
+          <article class="resource reveal">
+
+            <div>
+
+              <div class="icon">
+                CDC
+              </div>
+
+              <h3>
+                CDC
+              </h3>
+
+              <p>
+                Conteúdo educativo sobre epilepsia,
+                crises, segurança e primeiros socorros.
+              </p>
+
+            </div>
+
+            <a
+              href="https://www.cdc.gov/epilepsy/first-aid-for-seizures/index.html"
+              target="_blank"
+              rel="noopener"
+            >
+              Abrir fonte
+            </a>
+
+          </article>
+
+
+          <article class="resource reveal">
+
+            <div>
+
+              <div class="icon">
+                EF
+              </div>
+
+              <h3>
+                Epilepsy Foundation
+              </h3>
+
+              <p>
+                Materiais educativos sobre crises
+                e primeiros socorros.
+              </p>
+
+            </div>
+
+            <a
+              href="https://www.epilepsy.com/recognition/first-aid-resources"
+              target="_blank"
+              rel="noopener"
+            >
+              Abrir fonte
+            </a>
+
+          </article>
+
+        </div>
+
+
+        <div class="emergency reveal">
+
+          <div>
+
+            <h3>
+              Em uma emergência no Brasil
+            </h3>
+
+            <p>
+              O SAMU pode ser chamado gratuitamente pelo número 192.
+            </p>
+
+          </div>
+
+          <div class="phone">
+            192
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- RODAPÉ -->
+
+  <footer>
+
+    <div class="container footer-grid">
+
+      <div>
+
+        <div class="brand">
+
+          <span class="brand-mark">
+            CV
+          </span>
+
+          <span>
+            ConViva
+          </span>
+
+        </div>
+
+        <p
+          style="margin-top: 15px; max-width: 600px;"
+        >
+          Este é um projeto educacional.
+          O conteúdo não substitui avaliação,
+          diagnóstico ou tratamento médico.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Fontes principais
+        </strong>
+
+        <div class="source-list">
+
+          <a
+            href="https://www.cdc.gov/epilepsy/first-aid-for-seizures/index.html"
+            target="_blank"
+            rel="noopener"
+          >
+            CDC, primeiros socorros
+          </a>
+
+          <a
+            href="https://www.cdc.gov/epilepsy/about/index.html"
+            target="_blank"
+            rel="noopener"
+          >
+            CDC, informações sobre epilepsia
+          </a>
+
+          <a
+            href="https://www.gov.br/saude/pt-br/composicao/saes/samu-192"
+            target="_blank"
+            rel="noopener"
+          >
+            Ministério da Saúde, SAMU 192
+          </a>
+
+          <a
+            href="https://www.epilepsy.com/recognition/first-aid-resources"
+            target="_blank"
+            rel="noopener"
+          >
+            Epilepsy Foundation
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+      © 2026 ConViva. Projeto acadêmico.
+    </div>
+
+  </footer>
+
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <script>
+
+    /* MENU MOBILE */
+
+    const mobileMenu = document.getElementById("mobileMenu");
+    const navLinks = document.getElementById("navLinks");
+
+    mobileMenu.addEventListener("click", () => {
+
+      const isOpen =
+        navLinks.classList.toggle("open");
+
+      mobileMenu.setAttribute(
+        "aria-expanded",
+        isOpen ? "true" : "false"
+      );
+
+      mobileMenu.textContent =
+        isOpen ? "X" : "☰";
+    });
+
+
+    document
+      .querySelectorAll(".nav-links a")
+      .forEach((link) => {
+
+        link.addEventListener("click", () => {
+
+          navLinks.classList.remove("open");
+
+          mobileMenu.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+          mobileMenu.textContent = "☰";
+
+        });
+
+      });
+
+
+    /* ANIMAÇÃO AO ROLAR */
+
+    const revealElements =
+      document.querySelectorAll(".reveal");
+
+    const observer =
+      new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add("visible");
+
+              observer.unobserve(entry.target);
+
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+
+    revealElements.forEach(
+      (element) =>
+        observer.observe(element)
+    );
+
+
+    /* CRONÔMETRO */
+
+    let timerSeconds = 0;
+    let timerInterval = null;
+
+    const timer =
+      document.getElementById("timer");
+
+    const startTimer =
+      document.getElementById("startTimer");
+
+    const stopTimer =
+      document.getElementById("stopTimer");
+
+    const resetTimer =
+      document.getElementById("resetTimer");
+
+
+    function formatTime(totalSeconds) {
+
+      const minutes =
+        String(
+          Math.floor(totalSeconds / 60)
+        ).padStart(2, "0");
+
+      const seconds =
+        String(
+          totalSeconds % 60
+        ).padStart(2, "0");
+
+      return `${minutes}:${seconds}`;
+    }
+
+
+    function updateTimer() {
+
+      timer.textContent =
+        formatTime(timerSeconds);
+
+      if (timerSeconds >= 300) {
+
+        timer.classList.add(
+          "warning"
+        );
+
+      } else {
+
+        timer.classList.remove(
+          "warning"
+        );
+
+      }
+
+    }
+
+
+    startTimer.addEventListener(
+      "click",
+      () => {
+
+        if (timerInterval) return;
+
+        timerInterval =
+          setInterval(() => {
+
+            timerSeconds++;
+
+            updateTimer();
+
+            if (timerSeconds === 300) {
+
+              showToast(
+                "5 minutos atingidos. Em uma situação real, procure ajuda de emergência."
+              );
+
+            }
+
+          }, 1000);
+
+        showToast(
+          "Cronômetro iniciado."
+        );
+
+      }
+    );
+
+
+    stopTimer.addEventListener(
+      "click",
+      () => {
+
+        clearInterval(
+          timerInterval
+        );
+
+        timerInterval = null;
+
+        if (timerSeconds > 0) {
+
+          showToast(
+            `Cronômetro parado em ${formatTime(timerSeconds)}.`
+          );
+
+        }
+
+      }
+    );
+
+
+    resetTimer.addEventListener(
+      "click",
+      () => {
+
+        clearInterval(
+          timerInterval
+        );
+
+        timerInterval = null;
+
+        timerSeconds = 0;
+
+        updateTimer();
+
+        showToast(
+          "Cronômetro zerado."
+        );
+
+      }
+    );
+
+
+    /* MITOS */
+
+    document
+      .querySelectorAll(".myth-toggle")
+      .forEach((button) => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const myth =
+              button.closest(".myth");
+
+            const content =
+              myth.querySelector(
+                ".myth-content"
+              );
+
+            const isOpen =
+              myth.classList.toggle("open");
+
+            content.style.maxHeight =
+              isOpen
+                ? content.scrollHeight + "px"
+                : "0px";
+
+          }
+        );
+
+      });
+
+
+    /* TOAST */
+
+    const toast =
+      document.getElementById("toast");
+
+    let toastTimeout;
+
+
+    function showToast(message) {
+
+      toast.textContent = message;
+
+      toast.classList.add("show");
+
+      clearTimeout(
+        toastTimeout
+      );
+
+      toastTimeout =
+        setTimeout(() => {
+
+          toast.classList.remove("show");
+
+        }, 3200);
+
+    }
+
+
+    /* QUIZ */
+
+    const questions = [
+
+      {
+        question:
+          "Durante uma crise com movimentos involuntários, o que deve ser feito?",
+
+        answers: [
+          "Segurar braços e pernas para impedir os movimentos.",
+          "Afastar objetos perigosos e proteger a pessoa de ferimentos.",
+          "Colocar uma colher na boca.",
+          "Dar água imediatamente."
+        ],
+
+        correct: 1,
+
+        explanation:
+          "O foco é manter a pessoa segura e evitar ferimentos. Não tente conter os movimentos."
+      },
+
+
+      {
+        question:
+          "Qual informação é importante registrar durante uma crise?",
+
+        answers: [
+          "A cor da roupa da pessoa.",
+          "A hora exata em que ela comeu.",
+          "Quanto tempo a crise dura.",
+          "O número de pessoas ao redor."
+        ],
+
+        correct: 2,
+
+        explanation:
+          "Cronometrar a crise ajuda a reconhecer situações que exigem atendimento de emergência."
+      },
+
+
+      {
+        question:
+          "No Brasil, qual número deve ser usado para acionar o SAMU?",
+
+        answers: [
+          "190",
+          "191",
+          "192",
+          "193"
+        ],
+
+        correct: 2,
+
+        explanation:
+          "O SAMU, Serviço de Atendimento Móvel de Urgência, é acessado pelo número 192."
+      }
+
+    ];
+
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+
+
+    const quizQuestion =
+      document.getElementById(
+        "quizQuestion"
+      );
+
+    const answersBox =
+      document.getElementById(
+        "answers"
+      );
+
+    const quizStatus =
+      document.getElementById(
+        "quizStatus"
+      );
+
+    const nextQuestion =
+      document.getElementById(
+        "nextQuestion"
+      );
+
+    const scoreEl =
+      document.getElementById(
+        "score"
+      );
+
+    const scoreText =
+      document.getElementById(
+        "scoreText"
+      );
+
+    const quizProgress =
+      document.getElementById(
+        "quizProgress"
+      );
+
+
+    function renderQuestion() {
+
+      const item =
+        questions[currentQuestion];
+
+      answered = false;
+
+      quizQuestion.textContent =
+        item.question;
+
+      answersBox.innerHTML = "";
+
+      quizStatus.textContent = "";
+
+      nextQuestion.style.display =
+        "none";
+
+      quizProgress.style.width =
+        `${(currentQuestion / questions.length) * 100}%`;
+
+
+      item.answers.forEach(
+        (answer, index) => {
+
+          const button =
+            document.createElement("button");
+
+          button.className =
+            "answer";
+
+          button.type = "button";
+
+          button.textContent =
+            answer;
+
+
+          button.addEventListener(
+            "click",
+            () =>
+              selectAnswer(
+                button,
+                index
+              )
+          );
+
+
+          answersBox.appendChild(
+            button
+          );
+
+        }
+      );
+
+    }
+
+
+    function selectAnswer(
+      button,
+      index
+    ) {
+
+      if (answered) return;
+
+      answered = true;
+
+      const item =
+        questions[currentQuestion];
+
+      const buttons =
+        [
+          ...answersBox.querySelectorAll(
+            ".answer"
+          )
+        ];
+
+
+      buttons.forEach(
+        (btn, i) => {
+
+          btn.disabled = true;
+
+          if (
+            i === item.correct
+          ) {
+
+            btn.classList.add(
+              "correct"
+            );
+
+          }
+
+        }
+      );
+
+
+      if (
+        index === item.correct
+      ) {
+
+        score++;
+
+        button.classList.add(
+          "correct"
+        );
+
+        quizStatus.textContent =
+          "Correto. " +
+          item.explanation;
+
+      } else {
+
+        button.classList.add(
+          "wrong"
+        );
+
+        quizStatus.textContent =
+          "Ainda não. " +
+          item.explanation;
+
+      }
+
+
+      scoreEl.textContent =
+        `${score}/${questions.length}`;
+
+
+      scoreText.textContent =
+        currentQuestion ===
+        questions.length - 1
+          ? "Quiz concluído. Revise os conteúdos do site para fixar os pontos principais."
+          : "Continue para a próxima pergunta.";
+
+
+      nextQuestion.style.display =
+        "inline-flex";
+
+
+      quizProgress.style.width =
+        `${((currentQuestion + 1) / questions.length) * 100}%`;
+
+    }
+
+
+    nextQuestion.addEventListener(
+      "click",
+      () => {
+
+        currentQuestion++;
+
+        if (
+          currentQuestion <
+          questions.length
+        ) {
+
+          renderQuestion();
+
+        } else {
+
+          quizQuestion.textContent =
+            "Você chegou ao fim.";
+
+          answersBox.innerHTML = "";
+
+          quizStatus.textContent =
+            `Você acertou ${score} de ${questions.length}. Use o conteúdo como revisão e consulte fontes confiáveis.`;
+
+          nextQuestion.style.display =
+            "none";
+
+          quizProgress.style.width =
+            "100%";
+
+        }
+
+      }
+    );
+
+
+    renderQuestion();
+
+    updateTimer();
+
+  </script>
+
+</body>
+</html>
